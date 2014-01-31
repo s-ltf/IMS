@@ -1,0 +1,14 @@
+<!doctype html>
+<title>Send javascript with template demo</title>
+<style>
+  #data {
+    text-align: center;
+  }
+</style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<div id="data">nothing received yet</div>
+{% for i, c in data: %}
+<script>
+  $("#data").text("{{ i }} {{ c }}")
+</script>
+{% endfor %}
