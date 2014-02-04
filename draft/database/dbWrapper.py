@@ -3,9 +3,9 @@
 A wrapper class for pymongo to work with IMS capstone project scripts and server
 
 Author: s-ltf
-Date Created: Feb 1,2014
+Date Created: Feb 01,2014
 Last Modified by: s-ltf
-Last Modified on: Feb 1,2014
+Last Modified on: Feb 03,2014
 
 '''
 
@@ -30,7 +30,8 @@ MAX_SIZE = 10000
 
 #Class Definition
 
-class mongoWrapper :
+class mongoWrapper():
+
     def __init__ (self,ip=DEFAULT_IP,port=DEFAULT_PORT,dbName = DEFAULT_DB_TEST):
         """
         Initilizes the mongoWrapper, connects to mongoDB and connects to a database
@@ -93,7 +94,7 @@ class mongoWrapper :
         Keyword arguments:
         colName -- Name of collection to choose
         capped -- using capped collection or regular (default False)
-        size -- size of collection,used when collection doesn't exist and we're creating it for the first time (default 10000)
+        size -- size of collection,used when collection doesn't exist and we're creating it for the first time (default MAX_SIZE)
         """
         collection_names = self.db.collection_names()
         print collection_names
