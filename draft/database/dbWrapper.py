@@ -11,6 +11,7 @@ Last Modified on: Feb 03,2014
 
 #Import Section
 from pymongo import MongoClient
+import time
 
 #Global Variables
 DEFAULT_DB = 'IMS'
@@ -160,12 +161,14 @@ class mongoWrapper():
         query={}
         print self.cc[dbName][colName].find()
 
-        cursor = self.cc[dbName][colName].find(query,sort=[('$natural',1)],slave_ok=True,tailable=True,await_data=True)
+        #cursor = self.cc[dbName][colName].find(query,sort=[('$natural',1)],slave_ok=True,tailable=True,await_data=True)
+        cursor = self.cc[dbName][colName].find(taiable=True)
         while cursor.alive:
-            for record in cursor:
-                yield record
-
-
+            try:
+                doc = cursor.next()
+                yield doc
+            except StopIteration:
+                time.sleep(1)
 
 
 

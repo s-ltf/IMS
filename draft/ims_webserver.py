@@ -34,7 +34,7 @@ def formatEventStream(data):
     data -- data to be formatted and returned.
     '''
 
-    return "data: %s"%data
+    return "data: %s\n\n"%data
 
 def formatInputData(tag,value,data):
     '''
@@ -52,7 +52,7 @@ def isAlive():
     '''
     Queries the RPi's ip address
     '''
-    return formatEventStream(RPI.getIP())
+    return formatEventStream(RPI.getStatus().next())
     #gevent.sleep(3)
 
 
@@ -61,8 +61,8 @@ def getLogStream():
     Queries the logs data from the database
 
     '''
-    return formatEventStream(SERVER.queryCC(DEFAULT_LOGS))
-    #yield "test"
+    return formatEventStream(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
+
 
 
 #Main Code

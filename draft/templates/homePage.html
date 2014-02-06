@@ -9,51 +9,64 @@
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script>
 $(function(){
-	$("#nav").accordion();
+  $("#nav").accordion();
 }
 );
+</script>
+<script type="text/javascript">
+  var vehicle_status = new EventSource('/isAlive')
+
+  vehicle_status.onmessage = function(message){
+  $('#infoBanner').text(message.data);
+  console.log(message.data);
+
+  };
+</script>
+<script type="text/javascript">
+  var fetch_logs = new EventSource('/getLogStream')
+
+  fetch_logs.onmessage = function(message){
+    $('#outputarea').append(message.data+"<br>");
+  console.log(message.data);
+
+  };
 </script>
 
     </head>
 
     <body  style="position: relative;min-height:100%; top:opx;">
 
-	<!--header Banner -->
-        <div id="top">
-		<p>content</p>
-	</div>
-        <div id="infoBanner">
-		<p>content</p>
-	</div>
-        <div id="page">
-	<div>
-	<div id="leftcolumn">
-	<div id="nav">
-	<h2> command center</h2>
-	<div>
-	<ul>
-	<li> MMU </li>
-	<li> MMU </li>
-	<li> MMU </li>
-	<li> MMU </li>
-	</ul>
-	</div>
-	<h2> Visualizer </h2>
-	</div>
-	</div>
-	<div id="main">
-	<div id="outputarea">
-		<p id="output">test</p>
-	</div>
-	</div>
-	</div>	
-	</div>
-
-
-        
-       
-      
-     
+<!--header Banner -->
+      <div id="top">
+        <h1>IMS GROUP</h1>
+        <h2>Control Center Webfront</h2>
+      </div>
+      <div id="infoBanner">
+        <p>Vehicle Offline</p>
+      </div>
+      <div id="page">
+        <div>
+          <div id="leftcolumn">
+            <div id="nav">
+              <h2> command center</h2>
+              <div>
+                <ul>
+                  <li> MMU </li>
+                  <li> MMU </li>
+                  <li> MMU </li>
+                  <li> MMU </li>
+                </ul>
+              </div>
+              <h2> Visualizer </h2>
+            </div>
+          </div>
+          <div id="main">
+            <div id="outputarea">
+              <p id="output">test</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </body>
 
