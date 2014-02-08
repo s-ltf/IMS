@@ -3,32 +3,71 @@
 
 <head>
   <title>Visualiser V 0.1</title>
-  <input type="file" id="MapFile" />
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/> <!-- Remove this comment only if you have issues rendering this page on an intranet site. -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+  </script>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/> <!-- Remove this comment only if you have issues rendering this page on an intranet site. -->
   <style>
     svg {
       display: block; /* SVG is inherently an inline element. */
       margin: 0 auto; /* Center the SVG viewport. */
     }
   </style>
-</head>
 
-<body>	
-  <svg id="svgElement" width = "95%" height = "95%" viewBox="0 0 1000 600">
-    <rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" style="fill: white; stroke: black;" />
-    <circle id="Robot" cx="50%" cy="99%" r="1%" style="fill: orange; stroke: black; stroke-width: 1;" />
-  </svg>
   <script>
-	function readfile()
-	{
-		//alert(document.getElementById('MapFile').contentDocument.body.firstChild.innerHTML);
-		alert("What the hell");
-	}
-	//<svg id="svgElement" width="800px" height="600px" viewBox="0 0 800 600">
+  var pathTest = [
+  [-10,0,"wall"],[10,0,"wall"],[-10,10,"wall"],[10,10,"wall"],
+  [0,20,"wall"],[-10,20,"wall"],[-10,30,"wall"],[0,30,"wall"],
+  [-5,50,"wall"],[0,40,"wall"],[-10,50,"wall"],[-10,30,"wall"],
+  [-20,50,"wall"],[-20,30,"wall"],[-30,50,"wall"],[-30,30,"wall"],
+  [-40,40,"wall"]];
+
+  var svgPath = "M"+pathTest[0][0]+' '+pathTest[0][1]+' ';
+  $(document).ready(
+  function getCoord()
+  {
+    for (var i=1;i<pathTest.length;i++)
+    {
+    $('#testArea').append(pathTest[i][2]+"<br>");
+        console.log("test");
+        svgPath += "L"+pathTest[i][0]+' '+pathTest[i][1]+' ';
+    }
+    console.log(svgPath);
+    $('#svgElement').append('<path d="'+svgPath+'Z" />');
+  })
+
+
+
+  </script>
+
+  </head>
+
+  <body>
+  <!--  <div id="testArea" onload="getCoord()">
+      why?
+  </div>
+<input type="file" id="MapFile" />-->
+
+<svg id="svgElement" width = "90%" height = "90%" viewBox="0 0 1000 600">
+    <rect x="0" y="0" width="50%" height="50%" rx="10" ry="10" style="fill: white; stroke: black;" />
+    <circle id="Robot" cx="50%" cy="50%" r="1%" style="fill: orange; stroke: black; stroke-width: 1;" />
+  </svg>
+  <!--<script>
+    function readfile()
+    {
+    //alert(document.getElementById('MapFile').contentDocument.body.firstChild.innerHTML);
+      alert("What the hell");
+    }
+
+
+    //<svg id="svgElement" width="800px" height="600px" viewBox="0 0 800 600">
+
+
+
     "use strict";
     var delay = 30; // Used to compute the required displacement value.
     var svgElement = document.getElementById("svgElement"); 
     var Robot = document.getElementById("Robot"); 
+
 
     /* Create custom properties to store the circle's velocity: */
     Robot.vx = 50; // Move the circle at a velocity of 50 pixels per second in the x-direction.
@@ -50,9 +89,10 @@
            * The parameter s is in pixels per second.
            * "constants.delay" is a valid global constant.
            * The SVG viewport is set up such that 1 user unit equals 1 pixel.
-      */ {
-      return (s / 1000) * delay; // Given "constants.delay", return the object's displacement such that it will travel at s pixels per second across the screen.
-    }
+      */
+      {
+        return (s / 1000) * delay; // Given "constants.delay", return the object's displacement such that it will travel at s pixels per second across the screen.
+      }
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -63,8 +103,8 @@
       Robot.cy.baseVal.value -= s2d(Robot.vy); // Move the circle in the y-direction by a small amount.
 
       if ((Robot.cx.baseVal.value == (boxWidth - r)) || (Robot.cy.baseVal.value == (boxHeight - r))) // Detect if the circle attempts to exit the SVG viewport assuming the ball is moving to the right and down.
-        window.cancelAnimationFrame(requestAnimationFrameID); // The circle has hit the bottom or right wall so instruct the browser to stop calling doAnim().
+        window.cancelAnimationFrame[requestAnimationFrameID); // The circle has hit the bottom or right wall so instruct the browser to stop calling doAnim().
     }
-  </script>
+  </script>-->
 </body>
 </html>

@@ -3,8 +3,9 @@
 
     <head>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.8.0.min.js"></script>
-	<link type="text/css" href="http://www.google.com/cse/style/look/v2/default.css" rel="stylesheet">
+  <link type="text/css" href="http://www.google.com/cse/style/look/v2/default.css" rel="stylesheet">
 <link type="text/css" href="{{url_for('static',filename='styles.css')}}" rel="stylesheet">
+<link type="text/css" href="../static/styles.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script>
@@ -26,7 +27,7 @@ $(function(){
   var fetch_logs = new EventSource('/getLogStream')
 
   fetch_logs.onmessage = function(message){
-    $('#outputarea').append(message.data+"<br>");
+    $('#outputarea').append(message.data);
   console.log(message.data);
 
   };
@@ -52,7 +53,7 @@ $(function(){
               <div>
                 <ul>
                   <li> MMU </li>
-                  <li> MMU </li>
+                  <li> other </li>
                   <li> MMU </li>
                   <li> MMU </li>
                 </ul>

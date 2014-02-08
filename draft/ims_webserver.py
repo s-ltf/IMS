@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 Webserver for the IMS capstone project
 will be responsibe for controlling,outputting data and sending data to the webfront page and
@@ -15,9 +17,11 @@ import gevent.monkey
 import time,os,sys
 import database.dbWrapper as dbw
 import scripts.rPi_check as rpi
+#import redis
 
 #CONSTANTS & Global Variables
 SERVER = dbw.mongoWrapper()
+RED = dbw.redisWrapper()
 RPI = rpi.rPi_check()
 DEFAULT_LOGS = 'logs_cc'
 DEFAULT_HOMEPAGE = 'homePage.html'
@@ -34,7 +38,7 @@ def formatEventStream(data):
     data -- data to be formatted and returned.
     '''
 
-    return "data: %s\n\n"%data
+    return "retry:1000\ndata: %s\n\n"%data
 
 def formatInputData(tag,value,data):
     '''
@@ -61,7 +65,9 @@ def getLogStream():
     Queries the logs data from the database
 
     '''
-    return formatEventStream(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
+    #return formatEventStream(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
+    return RED.subscribe('logs')
+    #return(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
 
 
 
@@ -107,8 +113,9 @@ def insertLogs():
     input_data = formatInputData(tag,value,data)
     print "values to be inputted %s"%input_data
     objID = SERVER.insert(DEFAULT_LOGS,input_data)
+    RED.publish('logs',input_data)
     return "Obj ID : %s"%objID
-    
+
 
 @app.route('/getLogStream')
 def getLogStream_sse():

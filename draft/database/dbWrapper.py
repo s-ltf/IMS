@@ -11,7 +11,9 @@ Last Modified on: Feb 03,2014
 
 #Import Section
 from pymongo import MongoClient
+from threading import Thread
 import time
+import redis
 
 #Global Variables
 DEFAULT_DB = 'IMS'
@@ -19,6 +21,7 @@ DEFAULT_DB_TEST = 'IMS_TEST'
 DEFAULT_PORT = 27017
 DEFAULT_IP = 'localhost'
 MAX_SIZE = 10000
+IMS_PARTS = ['MMU','SIM','VIZ', 'CCM']
 
 
 #Helper Functions
@@ -45,6 +48,14 @@ class mongoWrapper():
         self.cc = MongoClient(ip,port)
         self.setDB(dbName)
         self.col = None
+        self.setCol('logs_cc',capped = True)
+        self.allLogs = []
+        self.logUpdate = True
+        self.partLogs={}
+        for part in IMS_PARTS:
+            self.partLogs[part] = []
+        #Thread1 = Thread(target = self.queryLogs,args=('logs_cc',))
+        #Thread1.start()
 
     def setDB(self,dbName):
         """
@@ -148,6 +159,44 @@ class mongoWrapper():
 
         return self.cc[dbName].drop_collection(colName)
 
+    '''
+    def queryCC(self,colName,dbName=DEFAULT_DB_TEST):
+        """
+        Query the set database and collection for any changes,and will keep feeding back
+        data 
+
+        Keyword arguments:
+        stuff*****
+
+        """
+
+        lastID = -1
+        lastCount = -1
+        while(True):
+            for log in self.allLogs:
+                newID = log['_id']
+                print newID
+                if(lastID != newID):
+                    lastID = newID
+                    yield log
+    '''
+
+    def queryLogs(self,colName,dbName=DEFAULT_DB_TEST):
+
+
+        cursor = self.cc[dbName][colName].find(sort=[('$natural',1)],slave_ok=True,tailable=True,await_data=True)
+
+        while cursor.alive:
+            try:
+                doc = cursor.next()
+                print "appending %s"%doc
+                self.allLogs.append(doc)
+                self.logUpdate =True
+
+            except StopIteration:
+                time.sleep(1)
+
+
 
     def queryCC(self,colName,dbName=DEFAULT_DB_TEST):
         """
@@ -158,20 +207,41 @@ class mongoWrapper():
         stuff*****
 
         """
-        query={}
-        print self.cc[dbName][colName].find()
-
-        #cursor = self.cc[dbName][colName].find(query,sort=[('$natural',1)],slave_ok=True,tailable=True,await_data=True)
-        cursor = self.cc[dbName][colName].find(taiable=True)
-        while cursor.alive:
-            try:
-                doc = cursor.next()
-                yield doc
-            except StopIteration:
-                time.sleep(1)
 
 
+        cursor = self.cc[dbName][colName].find(sort=[('$natural',1)],slave_ok=True,tailable=True,await_data=True)
+        print "outside"
+        while True:
+            if(self.logUpdate):
+                self.logUpdate =False
+                s = ""
+                for log in self.allLogs:
+                    s +="data: %s<br>\n"%log
+                s+="\n"
+                yield s
 
+        '''while(True):
+            if(self.logUpdate):
+                self.logUpdate = False
+                yield self.allLogs[-1]
+        '''
+class redisWrapper():
+    def __init__(self):
+        self.red = redis.StrictRedis()
+        self.pubsub = self.red.pubsub()
+
+
+
+    def subscribe(self,channelName):
+        self.pubsub.subscribe(channelName)
+
+        for message in self.pubsub.listen():
+            print message
+            yield 'data: %s\n\n'%message['data']
+
+    def publish(self,channelName,data):
+
+        self.red.publish(channelName,u'%s'%data)
 
 
 
