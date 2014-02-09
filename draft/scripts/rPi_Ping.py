@@ -94,8 +94,8 @@ def ping(public_ip,serverIP = SERVER_IP,serverPort=SERVER_PORT):
 def main():
 
     # Credentials (if needed)
-    username = 'iras146'
-    password = 'Dazeal1469'
+    username = ''
+    password = ''
 
     public_ip = getIP()
     msg = compileMessage(public_ip)
