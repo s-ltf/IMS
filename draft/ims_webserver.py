@@ -7,21 +7,22 @@ will be responsibe for controlling,outputting data and sending data to the webfr
 Author : s-ltf
 Date Created : Feb 02,2014
 Last Modified by : s-ltf
-Last Modified on : Feb 03,2014
+Last Modified on : Feb 08,2014
 '''
 
 #Imports
-from flask import Flask,request,render_template,Response
+from flask import Flask,request,render_template,Response,json
 import gevent
 import gevent.monkey
 import time,os,sys
 import database.dbWrapper as dbw
 import scripts.rPi_check as rpi
-#import redis
+import redis
 
 #CONSTANTS & Global Variables
 SERVER = dbw.mongoWrapper()
-RED = dbw.redisWrapper()
+#RED = dbw.redisWrapper()
+RED = redis.StrictRedis()
 RPI = rpi.rPi_check()
 DEFAULT_LOGS = 'logs_cc'
 DEFAULT_HOMEPAGE = 'homePage.html'
@@ -49,24 +50,35 @@ def formatInputData(tag,value,data):
     value --
     data --
     '''
-
     return {"tag":tag,"value":value,"data":data}
 
 def isAlive():
     '''
     Queries the RPi's ip address
     '''
+
     return formatEventStream(RPI.getStatus().next())
     #gevent.sleep(3)
 
+def formatJSON(data):
 
+
+    response = json.dumps(data)
+
+    return response
 def getLogStream():
     '''
     Queries the logs data from the database
 
     '''
     #return formatEventStream(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
-    return RED.subscribe('logs')
+    pubsub = RED.pubsub()
+    pubsub.subscribe('logs')
+    for message in pubsub.listen():
+        print message
+        yield 'data: %s\n\n'%(message['data'])
+
+       #yield RED.subscribe('logs')
     #return(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
 
 
@@ -111,9 +123,13 @@ def insertLogs():
     data = request.args.get('data')
 
     input_data = formatInputData(tag,value,data)
+    webfront_data = formatJSON(input_data)
     print "values to be inputted %s"%input_data
+    print "value sending to webserver %s"%webfront_data
     objID = SERVER.insert(DEFAULT_LOGS,input_data)
-    RED.publish('logs',input_data)
+
+    RED.publish('logs','%s'%(webfront_data))
+    #RED.publish('logs',input_data)
     return "Obj ID : %s"%objID
 
 
