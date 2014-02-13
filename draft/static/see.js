@@ -18,7 +18,7 @@ var vehicle_status = new EventSource('/isAlive')
 var fetch_logs = new EventSource('/getLogStream')
 
   fetch_logs.onmessage = function(message){
-    $('#cc_panel').append(parseData(message.data));
+    $('#output').append(parseData(message.data)+"<br>");
   console.log(message.data);
 
   };

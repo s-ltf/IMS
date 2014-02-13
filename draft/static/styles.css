@@ -38,6 +38,7 @@ h1,h2,h3,h4,h5,h6 {
 background-color:transparent;color:#000000;
 }
 
+
 #top {width:100%;margin:auto;height:50px;}
 
 #topLogo {text-align:left;float:left;margin-top:20px;margin-left:10px;}
@@ -46,9 +47,10 @@ background-color:transparent;color:#000000;
 #infoBanner_data{text-align:center;font-size:20px;position:relative;top:-21px}
 
 
-div.panel {overflow-y:scroll; margin-left:20px ;height:400px;width:100%}
+div.panel {float:left; margin-left:20px ;height:100%;width:100%}
 
-#cc_panel {background-color:#DADADA}
+#cc_panel {background-color:#DADADA;overflow-y:scroll}
+#svg_panel {overflow:scroll}
 #output {color:#1E8F0E;padding-left:20px}
 #searchSection {height:60px;margin-right:0px;margin-top:5px;text-align:left;}
 
@@ -67,7 +69,7 @@ a.topnav:hover,a.topnav:active {color:#ff4800;text-decoration:none;}
 
 #belowTopnav {width:1220px;margin:auto;}
 
-#page {width:95%;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#ffffff;}
+#page {position:relative;width:95%;height:500px;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#ffffff;}
 
 #leftcolumn {width:170px;float:left;margin-right:4px;margin-left:10px;}
 
@@ -82,7 +84,8 @@ display:block;font-size:13px;padding-bottom:4px;background-color:#ffffff;color:#
 background-color:#ffffff;color:#000000;text-decoration:underline;
 }
 
-#main {width:80%;float:left;padding:7px;padding-top:10px;overflow:hidden;}
+#main {position:absolute;width:85%;height:500px;float:left;padding:7px;padding-top:10px;overflow:hidden;margin-left:150px}
 
 #logo {float:left;margin-left:20px;margin-top:5px}
-#webfront_name {position:relative;top:10px;left:25%;margin-top:10px;width:550px;text-align:center}
+#webfront_name {float:left;margin-left:31%}
+#outputarea {height:100%;width:100%}

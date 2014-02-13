@@ -73,7 +73,7 @@ def getLogStream():
     '''
     #return formatEventStream(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
     pubsub = RED.pubsub()
-    pubsub.subscribe('logs')
+    pubsub.subscribe('sharedMem')
     for message in pubsub.listen():
         print message
         yield 'data: %s\n\n'%(message['data'])
@@ -141,6 +141,23 @@ def getLogStream_sse():
     return Response(
             getLogStream(),
             mimetype = 'text/event-stream')
+@app.route('/shared_data')
+def logSharedMemory():
+
+    #tag = request.args.get('tag')
+    #value = request.args.get('value')
+    data = request.args.get('data')
+
+    input_data = formatInputData('','',data)
+    webfront_data = formatJSON(input_data)
+    print "values to be inputted %s"%input_data
+    print "value sending to webserver %s"%webfront_data
+    objID = SERVER.insert('sharedMem',input_data)
+
+    RED.publish('sharedMem','%s'%(webfront_data))
+    #RED.publish('logs',input_data)
+    return "Logged - Obj ID : %s"%objID
+
 
 if __name__ == '__main__':
     app.debug = True

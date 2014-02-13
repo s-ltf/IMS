@@ -26,6 +26,7 @@ class rPi_check():
         self.connected = False
 
         Thread1 = Thread(target = self.timer)
+        Thread.daemon = True
         Thread1.start()
 
 
