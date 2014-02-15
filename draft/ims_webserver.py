@@ -9,7 +9,7 @@ Date Created : Feb 02,2014
 Last Modified by : s-ltf
 Last Modified on : Feb 08,2014
 '''
-
+#TODO: Add an api for vizualizer , vizFeed
 #Imports
 from flask import Flask,request,render_template,Response,json
 import gevent
@@ -56,7 +56,6 @@ def isAlive():
     '''
     Queries the RPi's ip address
     '''
-
     return formatEventStream(RPI.getStatus().next())
     #gevent.sleep(3)
 
@@ -81,7 +80,13 @@ def getLogStream():
        #yield RED.subscribe('logs')
     #return(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
 
+def getVizFeed():
 
+    pubsub = RED.pubsub()
+    pubsub.subscribe("vizFeed")
+    for message in pubsub.listen():
+        print message
+        yield 'data: %s\n\n'%(message['data'])
 
 #Main Code
 
@@ -141,7 +146,16 @@ def getLogStream_sse():
     return Response(
             getLogStream(),
             mimetype = 'text/event-stream')
-@app.route('/shared_data')
+
+@app.route('/getVizFeed')
+def getVizFeed_sse():
+
+    return Response(
+            getVizFeed(),
+            mimetype= 'text/event-stream')
+
+
+@app.route('/sharedData')
 def logSharedMemory():
 
     #tag = request.args.get('tag')
@@ -158,7 +172,24 @@ def logSharedMemory():
     #RED.publish('logs',input_data)
     return "Logged - Obj ID : %s"%objID
 
+@app.route('/vizFeed')
+def vizData():
 
+    data = request.args.get('data')
+#TODO: add proper extraction of x y coordinates then format them into a proper JSON string.
+
+    print data
+    '''
+    input_data = formatInputData('','',data)
+    webfront_data = formatJSON(input_data)
+    print "values to be inputted %s"%input_data
+    print "value sending to webserver %s"%webfront_data
+    objID = SERVER.insert('vizData',input_data)
+
+    RED.publish('vizFeed','%s'%(webfront_data))
+    return "Logged - Obj ID : %s"%objID
+    '''
+    return 0
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0',threaded = True)
