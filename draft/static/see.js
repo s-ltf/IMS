@@ -2,10 +2,31 @@
 function parseData(data){
 
     var parsed = JSON.parse(data);
+       return (parsed.data)
 
-    return (parsed.data)
 
+}
 
+function makeSVG(tag, attrs) {
+    var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs)
+      el.setAttribute(k, attrs[k]);
+      console.log(el);
+    return el;
+  }
+
+function coord(data,axis){
+    console.log("iside ParseData -1 " + data);
+    var parsed = JSON.parse(data);
+    console.log("inside ParseData "+ parsed.data);
+    console.log("inside ParseData2" + JSON.parse(parsed.data));
+
+    if (axis == 'x')
+        return parsed.x
+    else if (axis == 'y')
+        return parsed.y
+    else
+        return 0
 }
 var vehicle_status = new EventSource('/isAlive')
 
@@ -15,6 +36,17 @@ var vehicle_status = new EventSource('/isAlive')
 
   };
 
+var vizualizer_feed = new EventSource('/getVizFeed')
+var marker ="";
+var coord_x,coord_y ="";
+vizualizer_feed.onmessage = function(message){
+        console.log(message)
+        coord_x = coord(message.data,'x');
+        coord_y = coord(message.data,'y');
+        //console.log(coord_x + ' '+ coord_y);
+        marker = makeSVG('circle', {cx:0.0 , cy: 0.0, r:1, stroke: 'black', 'stroke-width': .5, fill: 'black'});
+        $('#testViz').append(marker);
+    }
 var fetch_logs = new EventSource('/getLogStream')
 
   fetch_logs.onmessage = function(message){
@@ -24,14 +56,7 @@ var fetch_logs = new EventSource('/getLogStream')
   };
 
 
-  function makeSVG(tag, attrs) {
-    var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
-    for (var k in attrs)
-      el.setAttribute(k, attrs[k]);
-      console.log(el);
-    return el;
-  }
-
+/*
   var pathTest = [
   [-10,0,"wall"],[10,0,"wall"],[-10,10,"wall"],[10,10,"wall"],
   [0,20,"wall"],[-10,20,"wall"],[-10,30,"wall"],[0,30,"wall"],
@@ -40,7 +65,7 @@ var fetch_logs = new EventSource('/getLogStream')
   [-40,40,"wall"]];
 
   var svgPath = "M"+pathTest[0][0]+' '+pathTest[0][1]+' ';
-  var marker = "";
+  marker = "";
   $(document).ready(
   function getCoord()
   {
@@ -53,7 +78,7 @@ var fetch_logs = new EventSource('/getLogStream')
     console.log(svgPath);
 
   });
-
+*/
 $(document).ready(
         function(){
             $('#svg_panel').hide();
