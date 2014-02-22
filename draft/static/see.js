@@ -15,18 +15,24 @@ function makeSVG(tag, attrs) {
     return el;
   }
 
+function parseJSON (data){
+    return JSON.parse(data);
+}
 function coord(data,axis){
-    console.log("iside ParseData -1 " + data);
-    var parsed = JSON.parse(data);
-    console.log("inside ParseData "+ parsed.data);
-    console.log("inside ParseData2" + JSON.parse(parsed.data));
+    //console.log("iside ParseData -1 " + data);
+    var parsed = parseJSON(data);
+    //console.log("inside ParseData "+ parsed.data);
+    var parsed2 = parseJSON(parsed.data);
+    //console.log("inside ParseData2" + parsed2.x);
+
 
     if (axis == 'x')
-        return parsed.x
+        return parsed2.x;
     else if (axis == 'y')
-        return parsed.y
+        return parsed2.y;
     else
-        return 0
+        return 0;
+
 }
 var vehicle_status = new EventSource('/isAlive')
 
@@ -40,11 +46,11 @@ var vizualizer_feed = new EventSource('/getVizFeed')
 var marker ="";
 var coord_x,coord_y ="";
 vizualizer_feed.onmessage = function(message){
-        console.log(message)
+        //console.log(message.data);
         coord_x = coord(message.data,'x');
         coord_y = coord(message.data,'y');
-        //console.log(coord_x + ' '+ coord_y);
-        marker = makeSVG('circle', {cx:0.0 , cy: 0.0, r:1, stroke: 'black', 'stroke-width': .5, fill: 'black'});
+        console.log(coord_x + ' '+ coord_y);
+        marker = makeSVG('circle', {cx:coord_x , cy:coord_y, r:1, stroke: 'black', 'stroke-width': .5, fill: 'red'});
         $('#testViz').append(marker);
     }
 var fetch_logs = new EventSource('/getLogStream')
