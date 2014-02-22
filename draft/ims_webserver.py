@@ -179,7 +179,7 @@ def vizData():
 #TODO: add proper extraction of x y coordinates then format them into a proper JSON string.
 
     print data
-    '''
+    
     input_data = formatInputData('','',data)
     webfront_data = formatJSON(input_data)
     print "values to be inputted %s"%input_data
@@ -187,9 +187,10 @@ def vizData():
     objID = SERVER.insert('vizData',input_data)
 
     RED.publish('vizFeed','%s'%(webfront_data))
+    '''
     return "Logged - Obj ID : %s"%objID
     '''
-    return 0
+    return "test"
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0',threaded = True)
