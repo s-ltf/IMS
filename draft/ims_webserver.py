@@ -65,6 +65,18 @@ def formatJSON(data):
     response = json.dumps(data)
 
     return response
+def getSerialStream():
+    '''
+    Queries the logs data from the database
+
+    '''
+    #return formatEventStream(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
+    pubsub = RED.pubsub()
+    pubsub.subscribe('serialData')
+    for message in pubsub.listen():
+        print message
+        yield 'data: %s\n\n'%(message['data'])
+
 def getLogStream():
     '''
     Queries the logs data from the database
@@ -138,6 +150,15 @@ def insertLogs():
     return "Obj ID : %s"%objID
 
 
+@app.route('/getSerialStream')
+def getSerialStream_sse():
+    '''
+    Responsible for handling the SSE requests regarding the logs saved in the server
+    '''
+    return Response(
+            getSerialStream(),
+            mimetype = 'text/event-stream')
+
 @app.route('/getLogStream')
 def getLogStream_sse():
     '''
@@ -153,6 +174,23 @@ def getVizFeed_sse():
     return Response(
             getVizFeed(),
             mimetype= 'text/event-stream')
+
+
+@app.route('/serialData')
+def logSerialData():
+
+    #tag = request.args.get('tag')
+    #value = request.args.get('value')
+    data = request.args.get('data')
+
+    input_data = formatInputData('','',data)
+    webfront_data = formatJSON(input_data)
+    print "values to be inputted %s"%input_data
+    print "value sending to webserver %s"%webfront_data
+    objID = SERVER.insert('serialData',input_data)
+
+    RED.publish('serialData','%s'%(webfront_data))
+    return "Logged - Obj ID : %s"%objID
 
 
 @app.route('/sharedData')

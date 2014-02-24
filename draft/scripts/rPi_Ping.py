@@ -19,7 +19,7 @@ FROM_ADDRESS= 'mac_pi@gmail.com' #Not being used atm
 TO_ADDRESS  = 'iras146@gmail.com'
 HOSTNAME = socket.gethostname()
 LOCAL_IP = socket.gethostbyname(HOSTNAME)
-
+TIME_BETWEEN_PIN=120
 
 #Helper Functions
 def generatePayload (ip_address):
@@ -103,8 +103,11 @@ def main():
     sendEmail(username,password,FROM_ADDRESS,TO_ADDRESS,msg)
 
     while(True):
-        ping(public_ip)
-        sleep(3)
+        try:
+            ping(public_ip)
+            sleep(TIME_BETWEEN_PING)
+        except:
+            pass
 
 if __name__ == '__main__':
 

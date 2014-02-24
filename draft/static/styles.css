@@ -7,10 +7,10 @@ LightGreyBg:F6F4F0
 GreyBorder:D4D4D4
 Pink:B4009E
 */
-html {overflow-y:scroll;}
+html {overflow-y:scroll;height:100%}
 
 body {font-size:13px;color:#000000;color:#404040;
-background-color:#F6F4F0;margin:0px;}
+background-color:#F6F4F0;margin:0px;height:100%}
 
 p,td,ul {
 line-height:130%;
@@ -47,11 +47,18 @@ background-color:transparent;color:#000000;
 #infoBanner_data{text-align:center;font-size:20px;position:relative;top:-21px}
 
 
-div.panel {float:left; margin-left:20px ;height:100%;width:100%}
+div.panel {float:left;height:100%;width:100%}
 
 #cc_panel {background-color:#DADADA;overflow-y:scroll}
-#svg_panel {overflow:scroll}
+//#svg_panel {overflow:scroll}
+//#svgElement {overflow:scroll}
+#testViz {height:100%}
 #output {color:#1E8F0E;padding-left:20px}
+
+#sharedMem_panel {overflow-y:scroll;height:100%}
+#sharedMem_output {padding-left:20px}
+
+
 #searchSection {height:60px;margin-right:0px;margin-top:5px;text-align:left;}
 
 #searchText {color:#777777;font-size:11px;font-style:italic;padding-top:3px;}
@@ -69,9 +76,9 @@ a.topnav:hover,a.topnav:active {color:#ff4800;text-decoration:none;}
 
 #belowTopnav {width:1220px;margin:auto;}
 
-#page {position:relative;width:95%;height:500px;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#ffffff;}
+#page {position:relative;width:95%;height:100%;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#ffffff;}
 
-#leftcolumn {width:170px;float:left;margin-right:4px;margin-left:10px;}
+#leftcolumn {width:100px;float:left;margin-right:4px;}
 
 #leftcolumn h2 {font-size:16px;font-weight:normal;color:#8AC007;}
 
@@ -84,8 +91,49 @@ display:block;font-size:13px;padding-bottom:4px;background-color:#ffffff;color:#
 background-color:#ffffff;color:#000000;text-decoration:underline;
 }
 
-#main {position:absolute;width:85%;height:500px;float:left;padding:7px;padding-top:10px;overflow:hidden;margin-left:150px}
+#main {width:100%;height:100%;padding-top:10px;top:65px;position:relative}
 
 #logo {float:left;margin-left:20px;margin-top:5px}
 #webfront_name {float:left;margin-left:31%}
-#outputarea {height:100%;width:100%}
+#outputarea {height:100%;width:100%;}
+
+  .tabs input[type=radio] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .tabs {
+    width: 100%;/*650px;*/
+    float: none;
+    list-style: none;
+    position: absolute;/*relative;*/
+    padding: 0;
+    margin: 10px auto;
+    background-color:#DADADA;
+  }
+  .tabs li{
+float: left;
+  }
+
+  .tabs label {
+  display: block;
+  padding: 10px 20px;
+  border-radius: 2px 2px 0 0;
+  color: #08C;
+  font-size: 24px;
+  font-weight: normal;
+  font-family: 'Roboto', helveti;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  }
+  .tabs label:hover {
+background: rgba(255,255,255,0.5);
+top: 0;
+  }*/
+

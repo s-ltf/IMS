@@ -12,7 +12,7 @@ from threading import Thread
 from time import sleep
 
 #CONSTANTS & Global Variables
-N_seconds = 122
+N_seconds = 5
 
 #Main Code
 class rPi_check():
@@ -58,11 +58,8 @@ class rPi_check():
         '''
         gets the current saved IP value for the RPi
         '''
-        old_ip = self.ip
         while (True):
-            if(old_ip != self.ip):
-                old_ip = self.ip
-                if(self.connected):
-                    yield "Vehicle is Currently Connected on %s"%(self.ip)
-                else:
-                    yield "Vehicle is Offline"
+            if(self.connected):
+                yield "Vehicle is Currently Connected on %s"%(self.ip)
+            else:
+                yield "Vehicle is Offline"

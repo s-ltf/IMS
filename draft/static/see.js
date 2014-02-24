@@ -49,18 +49,33 @@ vizualizer_feed.onmessage = function(message){
         //console.log(message.data);
         coord_x = coord(message.data,'x');
         coord_y = coord(message.data,'y');
+        coord_x = coord_x/5.0;
+        coord_y = -1*coord_y/5.0;
         console.log(coord_x + ' '+ coord_y);
         marker = makeSVG('circle', {cx:coord_x , cy:coord_y, r:1, stroke: 'black', 'stroke-width': .5, fill: 'red'});
-        $('#testViz').append(marker);
-    }
-var fetch_logs = new EventSource('/getLogStream')
+        $('#viewport').append(marker);
+$('#output').append("x: "+coord_x+" y: "+coord_y+"<br>");
+    $('#cc_panel').scrollTop($('#output').height());
 
-  fetch_logs.onmessage = function(message){
+};
+
+var fetch_serial = new EventSource('/getSerialStream');
+
+  fetch_serial.onmessage = function(message){
     $('#output').append(parseData(message.data)+"<br>");
+    $('#cc_panel').scrollTop($('#output').height());
   console.log(message.data);
 
   };
 
+var fetch_logs = new EventSource('/getLogStream')
+
+  fetch_logs.onmessage = function(message){
+    $('#output').append(parseData(message.data)+"<br>");
+    $('#cc_panel').scrollTop($('#output').height());
+  console.log(message.data);
+
+  };
 
 /*
   var pathTest = [
@@ -79,7 +94,7 @@ var fetch_logs = new EventSource('/getLogStream')
     {
         svgPath += "L"+pathTest[i][0]+' '+pathTest[i][1]+' ';
         marker = makeSVG('circle', {cx: pathTest[i][0], cy: pathTest[i][1], r:1, stroke: 'black', 'stroke-width': .5, fill: 'red'});
-        $("#testViz").append(marker);
+        $("#viewport").append(marker);
     }
     console.log(svgPath);
 
@@ -87,6 +102,7 @@ var fetch_logs = new EventSource('/getLogStream')
 */
 $(document).ready(
         function(){
+            svgPanZoom.init();
             $('#svg_panel').hide();
             $('#visualizer_id').click(function(){
                 $('#svg_panel').show();
