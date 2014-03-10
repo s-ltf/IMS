@@ -46,6 +46,9 @@ var vizualizer_feed = new EventSource('/getVizFeed')
 var marker ="";
 var coord_x,coord_y ="";
 vizualizer_feed.onmessage = function(message){
+        if(message.data == 1){
+            $('#output').append("server online - Visualizer Stream"+"<br>");
+        }else{
         //console.log(message.data);
         coord_x = coord(message.data,'x');
         coord_y = coord(message.data,'y');
@@ -54,15 +57,21 @@ vizualizer_feed.onmessage = function(message){
         console.log(coord_x + ' '+ coord_y);
         marker = makeSVG('circle', {cx:coord_x , cy:coord_y, r:1, stroke: 'black', 'stroke-width': .5, fill: 'red'});
         $('#viewport').append(marker);
-$('#output').append("x: "+coord_x+" y: "+coord_y+"<br>");
-    $('#cc_panel').scrollTop($('#output').height());
+        $('#output').append("x: "+coord_x+"\ty: "+coord_y+"<br>");
+        }
+        $('#cc_panel').scrollTop($('#output').height());
 
 };
 
 var fetch_serial = new EventSource('/getSerialStream');
 
   fetch_serial.onmessage = function(message){
-    $('#output').append(parseData(message.data)+"<br>");
+      if (message.data == 1){
+            msg = 'server online - Serial Stream';
+      }else{
+            msg = parseData(message.data);
+      }
+    $('#output').append(msg+"<br>");
     $('#cc_panel').scrollTop($('#output').height());
   console.log(message.data);
 
@@ -71,7 +80,12 @@ var fetch_serial = new EventSource('/getSerialStream');
 var fetch_logs = new EventSource('/getLogStream')
 
   fetch_logs.onmessage = function(message){
-    $('#output').append(parseData(message.data)+"<br>");
+    if (message.data == 1){
+            msg = 'server online - Log Stream';
+      }else{
+            msg = parseData(message.data);
+      }
+    $('#output').append(msg+"<br>");
     $('#cc_panel').scrollTop($('#output').height());
   console.log(message.data);
 
