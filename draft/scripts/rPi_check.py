@@ -4,7 +4,7 @@ A class for RPi checking status,will keep track if RPi made a connection to the 
 Author : s-ltf
 Date Created : Feb 03,2014
 Last Modified by : s-ltf
-Last Modified on : Feb 03,2014
+Last Modified on : Feb 23,2014
 '''
 
 #Imports
@@ -12,7 +12,8 @@ from threading import Thread
 from time import sleep
 
 #CONSTANTS & Global Variables
-N_seconds = 122
+IP_TTL = 122
+TIME_BETWEEN_PING=20
 
 #Main Code
 class rPi_check():
@@ -22,17 +23,20 @@ class rPi_check():
         Initiates the tracking process and launches a continuous thread to keep checking status of ip connection
         '''
         self.timedOut = 0
-        self.ip = ""
+        self.ip = "N/A"
         self.connected = False
+        self.pingWebfront=True
 
         Thread1 = Thread(target = self.timer)
-        Thread.daemon = True
+        Thread2 = Thread(target = self.pingTimer)
+        Thread1.daemon = True
+        Thread2.daemon = True
         Thread1.start()
-
+        Thread2.start()
 
     def timer(self):
         '''
-        Contious loop,checks if ip has been set and resets values every N_seconds
+        Contious loop,checks if ip has been set and resets values every IP_TTL
         '''
         while (True):
             if(self.timedOut == 0):
@@ -43,6 +47,12 @@ class rPi_check():
 
             #print self.ip
             sleep(1)
+    def pingTimer(self):
+
+        while(True):
+            sleep(TIME_BETWEEN_PING)
+            self.pingWebfront = True
+
     def setIP (self, ip):
         '''
         sets the IP value and resets the timer
@@ -52,17 +62,16 @@ class rPi_check():
         '''
         self.ip = ip
         self.connected = True
-        self.timedOut = N_seconds
+        self.timedOut = IP_TTL
 
     def getStatus(self):
         '''
         gets the current saved IP value for the RPi
         '''
-        old_ip = self.ip
         while (True):
-            if(old_ip != self.ip):
-                old_ip = self.ip
-                if(self.connected):
+            if(self.pingWebfront):
+                self.pingWebfront=False
+                if(self.connected and self.ip != 'N/A'):
                     yield "Vehicle is Currently Connected on %s"%(self.ip)
                 else:
-                    yield "Vehicle is Offline"
+                    yield "Vehicle is -Offline-"

@@ -4,7 +4,7 @@
 Author : s-ltf
 Date Created  : Feb 07,2014
 Last Modified by : s-ltf
-Last Modified on : Feb 07,2014
+Last Modified on : Mar 09,2014
 '''
 
 
@@ -13,8 +13,10 @@ import requests,smtplib,socket
 from time import sleep
 
 #CONSTANTS & Global Variables
-SERVER_IP = '135.23.47.27'
-SERVER_PORT = 5000
+SERVER_IP = 'ims.alatif.ca'
+SERVER_PORT = 80
+#SERVER_IP = '135.23.47.27'
+#SERVER_PORT = 5000
 FROM_ADDRESS= 'mac_pi@gmail.com' #Not being used atm
 TO_ADDRESS  = 'iras146@gmail.com'
 HOSTNAME = socket.gethostname()
