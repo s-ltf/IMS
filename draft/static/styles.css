@@ -22,7 +22,6 @@ font-family:verdana,helvetica,arial,sans-serif;
 
 iframe{margin:0px;}
 img {border:0;}
-
 table,th,td,input,textarea {
 font-size:100%;
 }
@@ -38,13 +37,13 @@ h1,h2,h3,h4,h5,h6 {
 background-color:transparent;color:#000000;
 }
 
-
+#webfront_logo {width:500px;float:left;margin-left:30%;margin-top:20px;margin-bottom:20px}
 #top {width:100%;margin:auto;height:50px;}
 
 #topLogo {text-align:left;float:left;margin-top:20px;margin-left:10px;}
 
 #infoBanner {width:95%;height:25px;float:left;margin-left:10px;padding-top:2px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#DADADA}
-#infoBanner_data{text-align:center;font-size:20px;position:relative;top:-21px}
+#infoBanner_data{text-align:center;font-size:20px;position:relative;top:-21px;color:#1E8F0E}
 
 
 div.panel {float:left;height:100%;width:100%}
