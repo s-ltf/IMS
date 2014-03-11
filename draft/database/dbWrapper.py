@@ -225,6 +225,7 @@ class mongoWrapper():
                 self.logUpdate = False
                 yield self.allLogs[-1]
         '''
+
 class redisWrapper():
     def __init__(self):
         self.red = redis.StrictRedis()
