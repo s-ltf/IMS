@@ -11,8 +11,8 @@ Contains all the main deliverables for the project
 - Hazard Analysis
 - Validation & Verification
 
-Draft
------
+Source
+------
 Contains all the initial parts of the system, eventually all draft compoents will be integrated together and organized.
 
 Snippets
