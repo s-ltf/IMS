@@ -9,7 +9,6 @@ Date Created : Feb 02,2014
 Last Modified by : s-ltf
 Last Modified on : Feb 08,2014
 '''
-#TODO: Add an api for vizualizer , vizFeed
 #Imports
 from flask import Flask,request,render_template,Response,json
 import gevent
@@ -217,7 +216,6 @@ def vizData():
 #TODO: add proper extraction of x y coordinates then format them into a proper JSON string.
 
     print data
-    
     input_data = formatInputData('','',data)
     webfront_data = formatJSON(input_data)
     print "values to be inputted %s"%input_data
