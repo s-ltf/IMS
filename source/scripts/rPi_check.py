@@ -31,8 +31,8 @@ class rPi_check():
         Thread2 = Thread(target = self.pingTimer)
         Thread1.daemon = True
         Thread2.daemon = True
-#        Thread1.start()
-#        Thread2.start()
+        Thread1.start()
+        Thread2.start()
 
     def timer(self):
         '''
