@@ -45,7 +45,7 @@ def writeData(sharedMemObj, data):
 
 def sendData(data,serverIP=SERVER_IP,serverPort=SERVER_PORT):
     r = requests.get('http://%s:%s/sharedData'%(serverIP,serverPort),params=generatePayload(data))
-    print r
+    #print r
 
 
 
@@ -140,7 +140,7 @@ class bcolors():
 #Shared Memory Control Class
 class SharedMem():
 
-   def __init__(self):
+    def __init__(self):
         #Variables/constants
         self.KEY = 65432
         self.MEMORY_SIZE = 200
@@ -329,6 +329,9 @@ class commModule():
                 (SERVER_IP,SERVER_PORT),params=generatePayload(mapData))
         print r
         return r
+
+    def sendPoseData(self,x,y,yaw):
+        print "x:%s\ty:%s\tyaw:%s"%(x,y,yaw)
 
 
 if __name__ == '__main__':
