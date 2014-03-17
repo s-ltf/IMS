@@ -48,10 +48,10 @@ background-color:transparent;color:#000000;
 
 div.panel {float:left;height:100%;width:100%}
 
-#cc_panel {background-color:#DADADA;overflow-y:scroll}
-//#svg_panel {overflow:scroll}
+#cc_panel {height:1000px;background-size: 1500px 1000px; background-repeat: no-repeat ;background-color:#DADADA;overflow-y:scroll} //background-image : url('img/saft.jpg');
+#svg_panel {height:1000px;background-size: 1500px 1000px; background-repeat: no-repeat ;overflow:scroll} //background-image : url('img/mansour.jpg');
 //#svgElement {overflow:scroll}
-#testViz {height:100%}
+#testViz {height:100%;}
 #output {color:#1E8F0E;padding-left:20px}
 
 #sharedMem_panel {overflow-y:scroll;height:100%}
