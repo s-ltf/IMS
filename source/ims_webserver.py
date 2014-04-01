@@ -7,7 +7,7 @@ will be responsibe for controlling,outputting data and sending data to the webfr
 Author : s-ltf
 Date Created : Feb 02,2014
 Last Modified by : s-ltf
-Last Modified on : Feb 08,2014
+Last Modified on : Mar 31,2014
 '''
 #Imports
 from flask import Flask,request,render_template,Response,json
@@ -209,6 +209,7 @@ def logSharedMemory():
     #RED.publish('logs',input_data)
     return "Logged - Obj ID : %s"%objID
 
+last_coord = ''
 @app.route('/vizFeed')
 def vizData():
 
@@ -220,6 +221,8 @@ def vizData():
     webfront_data = formatJSON(input_data)
     print "values to be inputted %s"%input_data
     print "value sending to webserver %s"%webfront_data
+    last_coord = input_data['data']
+
     objID = SERVER.insert('vizData',input_data)
 
     RED.publish('vizFeed','%s'%(webfront_data))
@@ -227,6 +230,24 @@ def vizData():
     return "Logged - Obj ID : %s"%objID
     '''
     return "test"
+
+@app.route('/poiFeed')
+def poiData():
+    global last_coord
+    data = request.args.get('data')
+    print data
+    if last_coord != '':
+        last_coord=eval(last_coord)
+        last_coord['tag'] = 'door'
+        last_coord = unicode(last_coord).replace("'","\"")
+        input_data = formatInputData('','',last_coord)
+        webfront_data = formatJSON(input_data)
+        print "values to be inputted %s"%input_data
+        print "value sending to webserver %s"%webfront_data
+        RED.publish('vizFeed','%s'%(webfront_data))
+
+    return data
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0',threaded = True)
