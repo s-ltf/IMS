@@ -46,8 +46,10 @@ eventSource_objects["viz_feed"].onmessage = function(message){
         console.log(coord_x + ' '+ coord_y);
         if(tag == "door"){
             color = 'blue'
-        }else{
+        }else if(tag == 'left'){
             color = 'red'
+        }else{
+            color = 'green'
         }
         marker =  svg_marker(coord_x,coord_y,color );
         $('#viewport').append(marker);
