@@ -7,7 +7,7 @@ will be responsibe for controlling,outputting data and sending data to the webfr
 Author : s-ltf
 Date Created : Feb 02,2014
 Last Modified by : s-ltf
-Last Modified on : Mar 31,2014
+Last Modified on : Apr 1,2014
 '''
 #Imports
 from flask import Flask,request,render_template,Response,json
@@ -238,7 +238,10 @@ def poiData():
     print data
     if last_coord != '':
         last_coord=eval(last_coord)
-        last_coord['tag'] = 'door'
+        if(last_coord['tag']== 'left'):
+            last_coord['tag'] = 'door'
+        else:
+            return
         last_coord = unicode(last_coord).replace("'","\"")
         input_data = formatInputData('','',last_coord)
         webfront_data = formatJSON(input_data)
