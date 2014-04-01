@@ -212,7 +212,7 @@ def logSharedMemory():
 last_coord = ''
 @app.route('/vizFeed')
 def vizData():
-
+    global last_coord
     data = request.args.get('data')
 #TODO: add proper extraction of x y coordinates then format them into a proper JSON string.
 
@@ -242,8 +242,8 @@ def poiData():
         last_coord = unicode(last_coord).replace("'","\"")
         input_data = formatInputData('','',last_coord)
         webfront_data = formatJSON(input_data)
-        print "values to be inputted %s"%input_data
-        print "value sending to webserver %s"%webfront_data
+        print "POI values to be inputted %s"%input_data
+        print "POI value sending to webserver %s"%webfront_data
         RED.publish('vizFeed','%s'%(webfront_data))
 
     return data
