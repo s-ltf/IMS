@@ -57,6 +57,7 @@ var live_feed_objects ={
     "viz_feed": new feed_object("viz_feed","#output","/getVizFeed"),
     "serial_feed" : new feed_object("serial_feed","#output","/getSerialStream","#cc_panel"),
     "log_feed": new feed_object("log_feed","#output","/getLogStream", "#cc_panel") ,
+    "pose_feed": new feed_object("pose_feed","#vehicle","/getPoseFeed"),
     };
 
 

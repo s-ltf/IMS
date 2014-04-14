@@ -13,10 +13,27 @@ function getValue(data,key){
         return parsed2.y;
     else if (key == 'tag')
         return parsed2.tag;
+    else if (key == 'yaw')
+        return parsed2.yaw;
     else
         return 0;
 
 }
+
+function degToRad(deg){
+    return deg*(Math.PI/180);
+}
+
+function svg_vehicle(coord_x,coord_y,yaw){
+    var yaw = -yaw;
+    $('#vehicle').empty();
+    var body =  makeSVG('circle', {cx:coord_x , cy:coord_y, r:3, stroke: 'purple', fill:'purple' });
+    var direction  =  makeSVG('line', {x1:coord_x , y1:coord_y,x2:coord_x+(7*(Math.cos(degToRad(yaw)))) ,y2:coord_y+(7*(Math.sin(degToRad(yaw)))), stroke: 'purple' });
+
+    $('#vehicle').append(body);
+    $('#vehicle').append(direction);
+}
+
 
 function makeSVG(tag, attrs) {
     var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -57,5 +74,21 @@ eventSource_objects["viz_feed"].onmessage = function(message){
         }
         $('#cc_panel').scrollTop($('#output').height());
 
+}
+
+eventSource_objects["pose_feed"].onmessage = function(message){
+        if(message.data == 1){
+            $('#output').append("server online - Position Feed"+"<br>");
+        }else{
+        //console.log(message.data);
+        coord_x = getValue(message.data,'x');
+        coord_y = getValue(message.data,'y');
+        yaw = getValue(message.data,'yaw');
+        tag = getValue(message.data,'tag');
+        coord_x = coord_x/5.0;
+        coord_y = -1*coord_y/5.0;
+        console.log(coord_x + ' '+ coord_y);
+        svg_vehicle(coord_x,coord_y,yaw);
+        }
 };
 

@@ -90,6 +90,14 @@ def getLogStream():
 
        #yield RED.subscribe('logs')
     #return(SERVER.queryCC(DEFAULT_LOGS,dbName='IMS_TEST'))
+def getPoseFeed():
+
+    pubsub = RED.pubsub()
+    pubsub.subscribe("poseFeed")
+    for message in pubsub.listen():
+        print message
+        yield 'data: %s\n\n'%(message['data'])
+
 
 def getVizFeed():
 
@@ -174,6 +182,13 @@ def getVizFeed_sse():
             getVizFeed(),
             mimetype= 'text/event-stream')
 
+@app.route('/getPoseFeed')
+def getPoseFeed_sse():
+
+    return Response(
+            getPoseFeed(),
+            mimetype= 'text/event-stream')
+
 
 @app.route('/serialData')
 def logSerialData():
@@ -209,6 +224,8 @@ def logSharedMemory():
     #RED.publish('logs',input_data)
     return "Logged - Obj ID : %s"%objID
 
+map_points = open('map_point.data','a',0)
+#test_map = open('map_point_apr_08')
 last_coord = ''
 @app.route('/vizFeed')
 def vizData():
@@ -217,6 +234,9 @@ def vizData():
 #TODO: add proper extraction of x y coordinates then format them into a proper JSON string.
 
     print data
+    map_points.write(str(data)+'\n')
+#    for data in test_map:
+
     input_data = formatInputData('','',data)
     webfront_data = formatJSON(input_data)
     print "values to be inputted %s"%input_data
@@ -230,6 +250,27 @@ def vizData():
     return "Logged - Obj ID : %s"%objID
     '''
     return "test"
+
+@app.route('/poseFeed')
+def poseData():
+    data = request.args.get('data')
+#TODO: add proper extraction of x y coordinates then format them into a proper JSON string.
+
+    print data
+
+    input_data = formatInputData('','',data)
+    webfront_data = formatJSON(input_data)
+    print "values to be inputted %s"%input_data
+    print "value sending to webserver %s"%webfront_data
+
+    objID = SERVER.insert('poseData',input_data)
+
+    RED.publish('poseFeed','%s'%(webfront_data))
+    '''
+    return "Logged - Obj ID : %s"%objID
+    '''
+    return data
+
 
 @app.route('/poiFeed')
 def poiData():
