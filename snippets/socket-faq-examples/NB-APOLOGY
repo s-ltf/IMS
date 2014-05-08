@@ -1,0 +1,21 @@
+Non-Blocking Server Apology
+---------------------------
+
+I put this example together at the last minute for the February FAQ.  It 
+makes some bad assumptions you should be aware of.  It's now April, and 
+still no fix, but I should get a short summer vacation.  Maybe I'll find 
+time to fix it at the cottage.
+
+I assume that all of the reads and writes I do are going to happen 
+without blocking.  What I should really do is place not only the file 
+descriptor for each socket in a cache, but also a pointer to a read and 
+write buffer.  Then all reads and writes should check for things like
+EWOULDBLOCK and less bytes transmitted than expected, and adjust the 
+buffer accordingly.
+
+Also, I didn't have time to run this by Andrew or others, and given the 
+rush job...  well, don't be suprised if you find a few bugs.  I hope it 
+is at least helpful as a start.
+
+Good luck,
+  Vic.

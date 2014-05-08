@@ -1,0 +1,48 @@
+Unix-socket-faq Sample Code 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+This code is used in the unix-socket-faq to illustrate concepts, etc.  It
+is here to teach socket programming, and so if it does anything wrong, I
+would like to hear about it.  You can email me at vic@brutus.tlug.org. 
+The code was not written to teach c.  It was written to be readable.  If
+you have suggestions for me, to make the code more readable or correct, I
+would like to hear from you. 
+
+Will it run on my system? 
+^^^^^^^^^^^^^^^^^^^^^^^^^ 
+It was developed under Linux 1.2.3 and gcc 2.6.3.  I have also built it on
+SunOS 4.1.3 with their c compiler.  It has been reported to build on AIX, SCO,
+DGUX and DEC OSF/1 cleanly and on DEC Ultrix with only "marginal trouble". 
+I expect that since I have adjusted to compile on SunOS, it shouldn't
+cause much trouble on other systems.  Let me know if you have problems on
+your platform, and we'll see what we can do. 
+
+The UDP Examples:
+^^^^^^^^^^^^^^^^^
+The UDP examples here illustrate a very simple protocol with no error checking.
+I hope to provide a more complicated example, with error checking in a future
+edition of the faq.  The problem is that there is no way for the client or
+server to know whether or not the other received a message.  The protocol will
+have to be extended to offer this sort of checking.
+
+The current protocol is very simple.  A client sends an amount to the server,
+the server adds that amount to its running total, and returns that total.
+
+The TCP Examples:
+^^^^^^^^^^^^^^^^^
+The tcp examples illustrate an upper case echo server.  The server takes input,
+separated by a line-feed, upper cases the input, and echos it to the client.
+The client example reads lines of input until the users presses enter on an
+empty line, at which time it closes the connection.
+
+Special Thanks To:
+^^^^^^^^^^^^^^^^^^
+The following have helped by pointing out bugs, suggesting fixes, or even
+providing patches:
+
+	Andrew Gierth <andrewg@microlise.co.uk>
+	Douglas E. Wegscheid <wegscd@Whirlpool.com>
+	David Lum <davknav@mit.edu>
+	Robin Paterson <robinp@buntypost.dundee.attgis.com>
+	Niko Baric <baric2@informatik.uni-hildesheim.de>
+
+Thanks guys, your help makes a really big difference.

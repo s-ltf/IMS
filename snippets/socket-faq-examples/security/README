@@ -1,0 +1,9 @@
+Since the issue of security has come up in c.u.p., I thought I'd create a 
+subdirectory here with sample code for dealing with security issues.  I 
+was interested in trying out the SO_REUSEADDR vulnerability, and I 
+thought others might be interested too.  More will come if more topics 
+to do with security issues come up.
+
+This is not intended as a how-to for would be "hackers" (in the Hollywood 
+sense of the word), but as a resource for programmers so that we can 
+better protect our programs from attack.

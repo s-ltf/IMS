@@ -1,0 +1,17 @@
+Thanks to Andrew Gierth <ANDREWG@microlise.co.uk> for these examples.
+
+Andrew wanted me to point out that the techniques in these examples will
+make your code very difficult to port to non-unix platforms, such as
+Windows, OS/2, etc. 
+
+These files contain an example of line based socket use with stdio and the
+smtp protocol.  The smtp_vrfy program is used this way:
+
+  $ smtp_vrfy hostname.domain user1 [user2 user3...]
+
+I had to remove the #include <sys/select.h> to compile it on my Linux system,
+although this line should be left in for SVR4.2 systems, and probably others.
+
+I also had to add #include <sys/param.h> which defines MAXHOSTNAMELEN.
+
+  Vic.
