@@ -9,7 +9,7 @@ PORT = 5005
 
 s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 s.bind((HOST,PORT))
-s.listen(1) #how many people are connect to this server, for now we'll leave it as 1 , later we may increase it if other parts switch to socket communications
+s.listen(2) #how many people are connect to this server, for now we'll leave it as 1 , later we may increase it if other parts switch to socket communications
 
 conn,addr = s.accept()
 print 'Connected by %s'%(str(addr))

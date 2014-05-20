@@ -8,22 +8,12 @@ function parseJSON (data){
     return JSON.parse(data);
 }
 
-function makeSVG(tag, attrs) {
-    var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
-    for (var k in attrs)
-      el.setAttribute(k, attrs[k]);
-      console.log(el);
-    return el;
-}
 
-function svg_marker(){
-    return makeSVG('circle', {cx:coord_x , cy:coord_y, r:1, stroke: 'black', 'stroke-width': .5, fill: 'red'});
-}
 
 function processFeed_status(message,live_feed_obj){
 
     $(live_feed_obj.target).text(message.data);
-    console.log(message.data);
+    //console.log(message.data);
 
 }
 
@@ -36,7 +26,7 @@ function processFeed (message,live_feed_obj){
       }
     $(live_feed_obj.target).append(msg+"<br>");
     $(live_feed_obj.target_container).scrollTop($(live_feed_obj.target).height());
-  console.log(message.data);
+  //console.log(message.data);
 
   };
 
@@ -50,22 +40,16 @@ function feed_object( name , target , url , target_container){
 };
 
 
-function coord(data,axis){
-    //console.log("iside ParseData -1 " + data);
-    var parsed = parseJSON(data);
-    //console.log("inside ParseData "+ parsed.data);
-    var parsed2 = parseJSON(parsed.data);
-    //console.log("inside ParseData2" + parsed2.x);
 
 
-    if (axis == 'x')
-        return parsed2.x;
-    else if (axis == 'y')
-        return parsed2.y;
-    else
-        return 0;
-
+function resetPanels(){
+    $("#output").text("Reset");
+    $("#viewport").empty();
+    $("#viewport").append(makeSVG('line',{ x1:"-200", y1:"0",x2:"200",y2:"0",stroke:"black"}));
+    $("#viewport").append(makeSVG('line',{ x1:"0", y1:"-200",x2:"0",y2:"200",stroke:"black"}));
+    $("#viewport").append(makeSVG('g',{ id: "vehicle"}));
 }
+
 /* ------------- */
 
 var live_feed_objects ={
@@ -73,6 +57,7 @@ var live_feed_objects ={
     "viz_feed": new feed_object("viz_feed","#output","/getVizFeed"),
     "serial_feed" : new feed_object("serial_feed","#output","/getSerialStream","#cc_panel"),
     "log_feed": new feed_object("log_feed","#output","/getLogStream", "#cc_panel") ,
+    "pose_feed": new feed_object("pose_feed","#vehicle","/getPoseFeed"),
     };
 
 
@@ -96,32 +81,14 @@ eventSource_objects["serial_feed"].onmessage = function(message){
 
 eventSource_objects["log_feed"].onmessage = function(message){
     var temp = live_feed_objects["log_feed"];
+    console.log(message);
     processFeed(message,temp);
 };
 
 
-var marker ="";
-var coord_x,coord_y ="";
-eventSource_objects["viz_feed"].onmessage = function(message){
-        if(message.data == 1){
-            $('#output').append("server online - Visualizer Stream"+"<br>");
-        }else{
-        //console.log(message.data);
-        coord_x = coord(message.data,'x');
-        coord_y = coord(message.data,'y');
-        coord_x = coord_x/5.0;
-        coord_y = -1*coord_y/5.0;
-        console.log(coord_x + ' '+ coord_y);
-        marker =  svg_marker();
-        $('#viewport').append(marker);
-        $('#output').append("x: "+coord_x+"\ty: "+coord_y+"<br>");
-        }
-        $('#cc_panel').scrollTop($('#output').height());
-
-};
-
 $(document).ready(
         function(){
+            resetPanels();
             svgPanZoom.init();
             $('#svg_panel').hide();
             $('#visualizer_id').click(function(){
@@ -133,4 +100,10 @@ $(document).ready(
                 $('#svg_panel').hide();
                 $('#cc_panel').show();
             });
+
+            $('#reset_id').click(function(){
+                resetPanels();
+            });
+
+
         });

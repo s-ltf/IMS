@@ -48,8 +48,8 @@ background-color:transparent;color:#000000;
 
 div.panel {float:left;height:100%;width:100%}
 
+#svg_panel {height:1000px; overflow:scroll;background-image : url('img/itb2.png') ;}
 #cc_panel {height:1000px;background-size: 1500px 1000px; background-repeat: no-repeat ;background-color:#DADADA;overflow-y:scroll} //background-image : url('img/saft.jpg');
-#svg_panel {height:1000px;background-size: 1500px 1000px; background-repeat: no-repeat ;overflow:scroll} //background-image : url('img/mansour.jpg');
 //#svgElement {overflow:scroll}
 #testViz {height:100%;}
 #output {color:#1E8F0E;padding-left:20px}
@@ -75,7 +75,7 @@ a.topnav:hover,a.topnav:active {color:#ff4800;text-decoration:none;}
 
 #belowTopnav {width:1220px;margin:auto;}
 
-#page {position:relative;width:95%;height:100%;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#ffffff;}
+#page {position:relative;width:95%;height:100%;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;border-radius:4px;}
 
 #leftcolumn {width:100px;float:left;margin-right:4px;}
 

@@ -11,6 +11,7 @@
         <link type="text/css" href="{{url_for('static',filename='styles.css')}}" rel="stylesheet">
         <script type="text/javascript" src="{{url_for('static',filename='control.js')}}"></script>
         <script type="text/javascript" src="{{url_for('static',filename='svg-pan-zoom-master/svg-pan-zoom.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='visualizer.js')}}"></script>
 
     </head>
 
@@ -40,9 +41,27 @@
                   <h2 class="nav" id=visualizer_id> Visualizer </h2>
                 </label>
               </li>
+              <li>
+                <input type="radio" name="reset_tab" id="reset_id">
+                <label for="reset_id">
+                  <h2 class="nav" id=reset_id> Reset </h2>
+                </label>
+              </li>
 
             </ul>
           </div>
+          <!--        <div id="submenu">
+            <ul id="nav" class="tabs">
+              <li>
+                <input type="radio" checked name="feed_tab" id="command_center_id">
+                <label for="command_center_id">
+                  <h2 class="nav" id=command_center_id> Reset</h2>
+                </label>
+              </li>
+
+            </ul>
+          </div>
+-->
           <div id="main">
             <div id="outputarea">
               <div id="cc_panel" class='panel'>
@@ -50,10 +69,8 @@
               </div>
               <div id="svg_panel" class='panel'>
                 <svg id=svgElement >
-                 <g id= "viewport" transform="translate(500,500) ">
-                 <line x1="-200" y1="0" x2="200" y2="0" stroke="black"/>
-                 <line x1="0" y1="-200" x2="0" y2="200" stroke="black"/>
-                 </g>
+                 <g id= "viewport" transform="translate(500,500)">
+                  </g>
                 </svg>
               </div>
             </div>

@@ -14,6 +14,7 @@ while True:
     print "Sending 'Test %s'"%i
     s.send("Test %s\n"%i)
     i+=1
-    if(i > 10000):
+    if(i > 10):
         break
+    sleep(1)
 s.close()
