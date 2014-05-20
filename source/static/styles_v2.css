@@ -37,22 +37,52 @@ h1,h2,h3,h4,h5,h6 {
 background-color:transparent;color:#000000;
 }
 
-#webfront_logo {width:500px;float:left;margin-left:30%;margin-top:20px;margin-bottom:20px}
-#top {width:100%;margin:auto;height:50px;}
+#mainHeader {font-family:Audiowide; text-align: center ; color:rgb(96,168,3);}
 
-#topLogo {text-align:left;float:left;margin-top:20px;margin-left:10px;}
+#infoBanner {box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#DADADA}
+#infoBanner_data{text-align:center;font-size:20px;position:relative;color:#1E8F0E}
 
-#infoBanner {width:95%;height:25px;float:left;margin-left:10px;padding-top:2px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#DADADA}
-#infoBanner_data{text-align:center;font-size:20px;position:relative;top:-21px;color:#1E8F0E}
+.nav{width:100%;line-height:0.1;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#DADADA;}
 
 
 div.panel {float:left;height:100%;width:100%}
+.tabs dd > a{
+    background:none;
+}
+.subtab{
+background-color:rgba(0, 0, 0, 0.08) ; padding:0;
+}
 
-#svg_panel {height:1000px; overflow:scroll;background-image : url('img/itb2.png') ;}
-#cc_panel {height:1000px;background-size: 1500px 1000px; background-repeat: no-repeat ;background-color:#DADADA;overflow-y:scroll} //background-image : url('img/saft.jpg');
+#log_nav{
+    padding:0;
+}
+#viz_nav{
+    padding:0;
+}
+
+#archive_nav{
+    padding:0;
+}
+#about_nav{
+    padding:0;
+}
+#team_panel{
+    overflow:visible;
+    background:none;
+    text-align:center;
+}
+#welcome_panel{
+    overflow:visible;
+    background:none;
+    text-align:center;
+}
+h3{
+    font-family:Audiowide;
+}
+.logs {background-color:#DADADA;overflow-y:scroll}
+//#svg_panel {overflow:scroll}
 //#svgElement {overflow:scroll}
-#testViz {height:100%;}
-#output {color:#1E8F0E;padding-left:20px}
+#testViz {height:100%}
 
 #sharedMem_panel {overflow-y:scroll;height:100%}
 #sharedMem_output {padding-left:20px}
@@ -75,7 +105,7 @@ a.topnav:hover,a.topnav:active {color:#ff4800;text-decoration:none;}
 
 #belowTopnav {width:1220px;margin:auto;}
 
-#page {position:relative;width:95%;height:100%;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;border-radius:4px;}
+#page {position:relative;width:95%;height:100%;float:left;margin-left:10px;margin-top:10px;padding-top:20px;padding-bottom:20px;box-shadow: 0px 0px 20px 3px #d3d3d3;border-radius:4px;background-color:#ffffff;}
 
 #leftcolumn {width:100px;float:left;margin-right:4px;}
 
@@ -94,45 +124,6 @@ background-color:#ffffff;color:#000000;text-decoration:underline;
 
 #logo {float:left;margin-left:20px;margin-top:5px}
 #webfront_name {float:left;margin-left:31%}
-#outputarea {height:100%;width:100%;}
+#outputarea {height:33rem;width:100%;}
 
-  .tabs input[type=radio] {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  .tabs {
-    width: 100%;/*650px;*/
-    float: none;
-    list-style: none;
-    position: absolute;/*relative;*/
-    padding: 0;
-    margin: 10px auto;
-    background-color:#DADADA;
-  }
-  .tabs li{
-float: left;
-  }
-
-  .tabs label {
-  display: block;
-  padding: 10px 20px;
-  border-radius: 2px 2px 0 0;
-  color: #08C;
-  font-size: 24px;
-  font-weight: normal;
-  font-family: 'Roboto', helveti;
-  background: rgba(255,255,255,0.2);
-  cursor: pointer;
-  position: relative;
-  top: 3px;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  }
-  .tabs label:hover {
-background: rgba(255,255,255,0.5);
-top: 0;
-  }*/
 
