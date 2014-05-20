@@ -1,0 +1,15 @@
+[95m-- Initializing Log For web_server_comm.log --[0m
+[94m('-- Initializing Log For shared_memory.log --', 'logData', None, None)[0m
+[94m('-- Initializing Log For serial_control.log --', 'logData', None, None)[0m
+[94m("\n[line:28 (<type 'exceptions.OSError'>, OSError(2, 'No such file or directory'))]", 'logData', None, None)[0m
+[94m('ERROR: Failed to Create Serial Port\n[line:33 (<class \'serial.serialutil.SerialException\'>, SerialException("could not open port /dev/ttyACM0: [Errno 2] No such file or directory: \'/dev/ttyACM0\'",))]', 'logData', None, None)[0m
+[94m('-- Initializing Log For mmu.log --', 'logData', None, None)[0m
+[94m('-- Initializing Log For socket_server.log --', 'logData', None, None)[0m
+[95m-- Initializing Log For web_server_comm.log --[0m
+[94m('-- Initializing Log For shared_memory.log --', 'logData', None, None)[0m
+[94m('-- Initializing Log For serial_control.log --', 'logData', None, None)[0m
+[94m("\n[line:28 (<type 'exceptions.OSError'>, OSError(2, 'No such file or directory'))]", 'logData', None, None)[0m
+[94m('ERROR: Failed to Create Serial Port\n[line:33 (<class \'serial.serialutil.SerialException\'>, SerialException("could not open port /dev/ttyACM0: [Errno 2] No such file or directory: \'/dev/ttyACM0\'",))]', 'logData', None, None)[0m
+[94m('-- Initializing Log For mmu.log --', 'logData', None, None)[0m
+[94m('-- Initializing Log For socket_server.log --', 'logData', None, None)[0m
+[94m('ERROR: Failed to Connect Serial Port\n[line:40 (<type \'exceptions.AttributeError\'>, AttributeError("SerialControl instance has no attribute \'ser\'",))]', 'logData', None, None)[0m

@@ -1,0 +1,12 @@
+[95m-- Initializing Log For serial_control.log --[0m
+[91m
+[line:28 (<type 'exceptions.OSError'>, OSError(2, 'No such file or directory'))][0m
+[91mERROR: Failed to Create Serial Port
+[line:33 (<class 'serial.serialutil.SerialException'>, SerialException("could not open port /dev/ttyACM0: [Errno 2] No such file or directory: '/dev/ttyACM0'",))][0m
+[95m-- Initializing Log For serial_control.log --[0m
+[91m
+[line:28 (<type 'exceptions.OSError'>, OSError(2, 'No such file or directory'))][0m
+[91mERROR: Failed to Create Serial Port
+[line:33 (<class 'serial.serialutil.SerialException'>, SerialException("could not open port /dev/ttyACM0: [Errno 2] No such file or directory: '/dev/ttyACM0'",))][0m
+[91mERROR: Failed to Connect Serial Port
+[line:40 (<type 'exceptions.AttributeError'>, AttributeError("SerialControl instance has no attribute 'ser'",))][0m

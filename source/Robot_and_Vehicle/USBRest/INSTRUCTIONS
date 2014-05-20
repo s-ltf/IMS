@@ -1,0 +1,4 @@
+First type lsusb
+then
+sudo ./usbreset /dev/bus/usb/-BUS NUMBER-/-DEVICE NUMBER- 
+
