@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+         <title> Indoor Mapping System</title>
+         <link rel="stylesheet" href="{{url_for('static',filename='css/foundation.css')}}" />
+         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Audiowide">
+        <script src="{{url_for('static',filename='js/vendor/modernizr.js')}}"></script>
+        <script src="{{url_for('static',filename='js/vendor/jquery.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='svg-pan-zoom-master/svg-pan-zoom.js')}}"></script>
+        <script src="{{url_for('static',filename='js/vendor/fastclick.js')}}"></script>
+        <script src="{{url_for('static',filename='js/foundation.min.js')}}"></script>
+        <script src="{{url_for('static',filename='js/foundation/foundation.clearing.js')}}"></script>
+        <script src="{{url_for('static',filename='control_v2.js')}}"></script>
+        <script src="{{url_for('static',filename='visualizer_v2.js')}}"></script>
+        <link type="text/css" href="{{url_for('static',filename='styles_v2.css')}}" rel="stylesheet">
+
+    </head>
+
+    <body>
+    <div class="row">
+      <div class="large-12 large-centered columns">
+       <h1 id="mainHeader" > itMaps-Bot 
+      <img src="static/img/logo_green.png" alt="logo" id='easter'>
+       </h1> 
+      </div>
+    </div>
+    <!--Vehicle Status Banner -->
+    <div class="row">
+      <div class="large-12 large-centered columns" id="infoBanner">
+        <p id="infoBanner_data" >Vehicle Offline</p>
+
+      </div>
+    </div>
+    <div class="row nav">
+      <div class="large-8 columns">
+<dl class="tabs nav" style="margin-top:0.4rem ;box-shadow:none" data-tab>
+  <dd><a href="#welcome_panel">Home</a></dd>
+  <dd><a href="#log_nav">Vehicle Logs</a></dd>
+  <dd><a href="#viz_nav">Visualizer</a></dd>
+  <dd><a href="#about_nav">About</a></dd>
+</dl>
+</div>
+<div class="large-4 columns" style="text-align:right" >
+<a id='save' class="small round button">Save</a>
+<a id='reset' class="small round button">Reset</a>
+<a id='stop' class="small alert round button">Stop</a>
+</div>
+</div>
+    <div class='tabs-content' id="sub_nav" >
+      <dl id="log_nav" class="subtab row nav tabs content" data-tab>
+          <dd><a href='#all_panel'>All</a></dd>
+          <dd><a href='#mmu_panel'>MMU</a></dd>
+          <dd><a href='#poi_panel'>POI</a></dd>
+          <dd><a href='#serial_panel'>Serial</a></dd>
+          <dd><a href='#shared_mem_panel'>Shared Mem</a></dd>
+      </dl>
+    <dl id="viz_nav" class="row nav subtab tabs content" data-tab>
+          <dd><a id='viz_live' href='#svg_panel'>Live Imagging</a></dd>
+          <dd><a href='#viz_feed_panel'>Data Feed</a></dd>
+          <dd><a id='arch_open' href='#arch_panel'>Saved Data</a></dd>
+    </dl>
+    <dl id="about_nav" class="row nav subtab tabs content" data-tab>
+          <dd><a id='team_open' href='#team_panel'>Team</a></dd>
+          <dd><a id='project_open' href='#project_panel'>Project</a></dd>
+    </dl>
+</div>
+</div>
+<div class='row'>
+<div class='tabs-content large-12 columns' id="outputarea">
+  <div id="all_panel" class='content panel logs'>
+      <p class='output' id="all_output">Logging From All Modules</p>
+ </div>
+  <div id="mmu_panel" class='content panel logs'>
+      <p class='output' id="mmu_output">Modular Mapping Unit</p>
+ </div>
+  <div id="poi_panel" class='content panel logs'>
+      <p class='output' id="poi_output">Points Of Interest Module</p>
+ </div>
+  <div id="serial_panel" class='content panel logs'>
+      <p class='output' id="serial_output">Serial Module</p>
+ </div>
+  <div id="viz_feed_panel" class='content panel logs'>
+    <p class='output' id="viz_output">Visualizer Feed<br></p>
+ </div>
+  <div id="shared_mem_panel" class='content panel logs'>
+      <p class='output' id="shared_mem_output">Shared Memory</p>
+ </div>
+    <div id="svg_panel" class='content panel'>
+      <svg id=svgElement >
+       <g id= "viewport" transform="translate(500,500) ">
+       <line x1="-200" y1="0" x2="200" y2="0" stroke="black"/>
+       <line x1="0" y1="-200" x2="0" y2="200" stroke="black"/>
+       <g id="vehicle">
+       </g>
+       </g>
+      </svg>
+    </div>
+ <div id="arch_panel" class='content panel logs'>
+  <ul class="clearing-thumbs small-block-grid-4" data-clearing>
+  {% for image in images %}
+  <li><a href="{{image|e}}"><img src="{{image|e}}"></a></li>
+  {% endfor %}
+  </ul>
+    </div>
+ <div id="team_panel" class='content panel logs'>
+      <ul class="small-block-grid-3" id='team_desc'>
+        <li><img src="static/groupImages/Marc_min.gif"><h3>Marc Bishara<h3></li>
+        <li><img src="static/groupImages/Sari_min.gif"><h3>Sari Abdel-Latif<h3></li>
+        <li><img src="static/groupImages/Mahmoud_min.gif"><h3>Mahmoud Elsaftawy<h3></li>
+        <li><img src="static/groupImages/Chander_min.gif"><h3>Chanderdeep Batth<h3></li>
+        <li><img src="static/groupImages/Fahim_min.gif"><h3>Fahim Wahid<h3></li>
+        <li><img src="static/groupImages/Mansour_min.gif"><h3>Ahmed Mansour<h3></li>
+            <!--<li><img src="static/groupImages/Marc_2.gif"><h3>Marc Bishara<h3></li>-->
+      </ul>
+ </div>
+ <div id="project_panel" class='content panel logs'>
+      <p class='output' id="project_desc">
+      <h1> The Project</h1>
+      <p>A Capstone Graduation project for the 2014 year, our team consisting of both Mechatronics and Software Engineering students set out to create an Autonmous Mapping
+      Unit that generated a digital 2-D map with points of interest (e.g. Doors,Name tags) labelled on it.<br>
+
+      </p>
+      </p>
+ </div>
+<div id="welcome_panel" class='content panel logs active'>
+      <p class='output' id="welcome_desc">
+      <h1>WELCOME!</h1>
+      <p>Please Click One of the Navigation Tabs
+      </p>
+        <img src="static/img/bot_360_min.gif">
+      </p>
+ </div>
+</div>
+</div>
+<script>
+$(document).foundation();
+</script>
+    </body>
+
+</html>
