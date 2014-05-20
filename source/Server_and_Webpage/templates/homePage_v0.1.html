@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title> Indoor Mapping </title>
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.8.0.min.js"></script>
+        <link type="text/css" href="http://www.google.com/cse/style/look/v2/default.css" rel="stylesheet">
+        <link type="text/css" href="{{url_for('static',filename='styles.css')}}" rel="stylesheet">
+        <script type="text/javascript" src="{{url_for('static',filename='see.js')}}"></script>
+
+    </head>
+
+    <body  style="position: relative;min-height:100%; top:opx;">
+
+      <!--header Banner -->
+      <div id="top">
+        <h1 id="logo" >MASC</h1>
+        <h2 id="webfront_name">Control Center Webfront</h2>
+      </div>
+
+      <!--Vehicle Status Banner -->
+      <div id="infoBanner">
+        <p id="infoBanner_data">Vehicle Offline</p>
+      </div>
+      <div id="page">
+        <div id="rightcolumn">
+            <div id="outputarea">
+              <div id="sharedMem_panel">
+                <p id="sharedMem_output"></p>
+              </div>
+            </div>
+          </div>
+<div>
+          <div id="leftcolumn">
+            <div id="nav">
+              <h2 class="nav" id=command_center_id> Vehicle Feed</h2>
+              <div>
+            </div>
+              <h2 class="nav" id=visualizer_id> Visualizer </h2>
+            </div>
+          </div>
+          <div id="main">
+            <div id="outputarea">
+              <div id="cc_panel" class='panel'>
+                <p id="output"></p>
+              </div>
+              <div id="svg_panel" class='panel'>
+                <svg id=svgElement>
+                 <g id= "testViz" transform="translate(500,500) ">
+                 <line x1="-200" y1="0" x2="200" y2="0" stroke="black"/>
+                 <line x1="0" y1="-200" x2="0" y2="200" stroke="black"/>
+                 </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+                </div>
+
+    </body>
+
+</html>
+
