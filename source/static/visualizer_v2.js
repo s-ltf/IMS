@@ -44,15 +44,18 @@ function makeSVG(tag, attrs) {
 }
 
 function svg_marker(coord_x,coord_y,color ){
-    return makeSVG('circle', {cx:coord_x , cy:coord_y, r:1, stroke: 'black', 'stroke-width': .5, fill:color });
+    return makeSVG('circle', {cx:coord_x , cy:coord_y, r:2, stroke: 'black', 'stroke-width': .5, fill:color });
 }
 
+function svg_door(coord_x,coord_y,color ){
+    return makeSVG('rect', {x:coord_x , y:coord_y, width:8,height:8, stroke: 'black', 'stroke-width': .5, fill:color });
+}
 
 var marker ="";
 var coord_x,coord_y ="";
 eventSource_objects["viz_feed"].onmessage = function(message){
         if(message.data == 1){
-            $('#output').append("server online - Visualizer Stream"+"<br>");
+            $('#viz_output').append("server online - Visualizer Stream"+"<br>");
         }else{
         //console.log(message.data);
         coord_x = getValue(message.data,'x');
@@ -63,22 +66,24 @@ eventSource_objects["viz_feed"].onmessage = function(message){
         //console.log(coord_x + ' '+ coord_y);
         if(tag == "door"){
             color = 'blue'
+            marker = svg_door(coord_x,coord_y,color);
         }else if(tag == 'left'){
             color = 'red'
+            marker =  svg_marker(coord_x,coord_y,color );
         }else{
             color = 'green'
+            marker =  svg_marker(coord_x,coord_y,color );
         }
-        marker =  svg_marker(coord_x,coord_y,color );
         $('#viewport').append(marker);
-        $('#output').append("x: "+coord_x+"\ty: "+coord_y+"<br>");
+        $('#viz_output').append("x: "+coord_x+"\ty: "+coord_y+"<br>");
         }
-        $('#cc_panel').scrollTop($('#output').height());
+        $('#viz_feed_panel').scrollTop($('#viz_output').height());
 
 }
 
 eventSource_objects["pose_feed"].onmessage = function(message){
         if(message.data == 1){
-            $('#output').append("server online - Position Feed"+"<br>");
+            $('#viz_output').append("server online - Position Feed"+"<br>");
         }else{
         //console.log(message.data);
         coord_x = getValue(message.data,'x');
