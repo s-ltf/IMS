@@ -1,0 +1,10 @@
+Controller.py,Planner,MMU folder and Communication_Module folders are to be copied over to the main Pi
+Poi Folder to be copied over to the second pi
+
+Controller.py is in charge of launching the various modules on the pi
+
+Logs Folder contains the log files for the various launched modules
+
+SensorInterfaceModule contains the vehicle control scripts.
+
+Planner contains the logic steering the vehicle.
