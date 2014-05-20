@@ -13,7 +13,7 @@ function parseJSON (data){
 function processFeed_status(message,live_feed_obj){
 
     $(live_feed_obj.target).text(message.data);
-    console.log(message.data);
+    //console.log(message.data);
 
 }
 
@@ -26,7 +26,7 @@ function processFeed (message,live_feed_obj){
       }
     $(live_feed_obj.target).append(msg+"<br>");
     $(live_feed_obj.target_container).scrollTop($(live_feed_obj.target).height());
-  console.log(message.data);
+  //console.log(message.data);
 
   };
 
@@ -47,7 +47,7 @@ function resetPanels(){
     $("#viewport").empty();
     $("#viewport").append(makeSVG('line',{ x1:"-200", y1:"0",x2:"200",y2:"0",stroke:"black"}));
     $("#viewport").append(makeSVG('line',{ x1:"0", y1:"-200",x2:"0",y2:"200",stroke:"black"}));
-
+    $("#viewport").append(makeSVG('g',{ id: "vehicle"}));
 }
 
 /* ------------- */
@@ -81,12 +81,14 @@ eventSource_objects["serial_feed"].onmessage = function(message){
 
 eventSource_objects["log_feed"].onmessage = function(message){
     var temp = live_feed_objects["log_feed"];
+    console.log(message);
     processFeed(message,temp);
 };
 
 
 $(document).ready(
         function(){
+            resetPanels();
             svgPanZoom.init();
             $('#svg_panel').hide();
             $('#visualizer_id').click(function(){
